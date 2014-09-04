@@ -164,7 +164,8 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
 
       function removeModalWindow(modalInstance) {
 
-        var body = $document.find('body').eq(0);
+        // Using '#bo-wrapper' instead of 'body' due to ELE-1993
+        var body = $document.find('#bo-wrapper').eq(0);
         var modalWindow = openedWindows.get(modalInstance).value;
 
         //clean up the stack
@@ -246,7 +247,8 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
           keyboard: modal.keyboard
         });
 
-        var body = $document.find('body').eq(0),
+        // Using '#bo-wrapper' instead of 'body' due to ELE-1993
+        var body = $document.find('#bo-wrapper').eq(0),
             currBackdropIndex = backdropIndex();
 
         if (currBackdropIndex >= 0 && !backdropDomEl) {
