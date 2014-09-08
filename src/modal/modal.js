@@ -101,8 +101,8 @@ angular.module('ui.bootstrap.modal', [])
     };
   }])
 
-  .factory('$modalStack', ['$document', '$compile', '$rootScope', '$$stackedMap',
-    function ($document, $compile, $rootScope, $$stackedMap) {
+  .factory('$modalStack', ['$document', '$compile', '$rootScope', '$$stackedMap', '$timeout',
+    function ($document, $compile, $rootScope, $$stackedMap, $timeout) {
 
       var backdropjqLiteEl, backdropDomEl;
       var backdropScope = $rootScope.$new(true);
@@ -137,7 +137,7 @@ angular.module('ui.bootstrap.modal', [])
 				$(modalWindow.modalDomEl).addClass('closing');
 				$timeout(function(){
 					modalWindow.modalDomEl.remove();
-				},1500)
+				},1500);
 
 				//remove backdrop if no longer needed
 				if (backdropDomEl && backdropIndex() == -1) {
