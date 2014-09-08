@@ -106,7 +106,8 @@ angular.module('ui.bootstrap.modal', [])
 
       var backdropjqLiteEl, backdropDomEl;
       var backdropScope = $rootScope.$new(true);
-      var body = $document.find('body').eq(0);
+      // Using '#bo-wrapper' instead of 'body' due to ELE-1993
+      var body = $document.find('#bo-wrapper').eq(0);
       var openedWindows = $$stackedMap.createNew();
       var $modalStack = {};
 
@@ -132,11 +133,14 @@ angular.module('ui.bootstrap.modal', [])
         //clean up the stack
         openedWindows.remove(modalInstance);
 
-        //remove window DOM element
-        modalWindow.modalDomEl.remove();
+				//remove window DOM element
+				$(modalWindow.modalDomEl).addClass('closing');
+				$timeout(function(){
+					modalWindow.modalDomEl.remove();
+				},1500)
 
-        //remove backdrop if no longer needed
-        if (backdropIndex() == -1) {
+				//remove backdrop if no longer needed
+				if (backdropDomEl && backdropIndex() == -1) {
           backdropDomEl.remove();
           backdropDomEl = undefined;
         }
